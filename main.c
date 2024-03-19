@@ -1,5 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcruz-sa <mcruz-sa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/19 12:06:22 by mcruz-sa          #+#    #+#             */
+/*   Updated: 2024/03/19 13:41:50 by mcruz-sa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int main(int argc, char **argv)
+#include "pipex.h"
+
+int main(int argc, char *argv[])
 {
-    
+    int fd[2];
+
+    if (pipe(fd) == -1)
+    {
+        perror("Pipe error");
+        exit(EXIT_FAILURE);
+    }
+    return (0);   
 }
