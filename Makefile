@@ -8,7 +8,8 @@ OBJ_DIR	= obj/
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -g
 
-SRC = 	main.c
+SRC = 	main.c \
+		checks.c
 
 all: $(NAME)
 

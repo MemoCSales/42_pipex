@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcruz-sa <mcruz-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:06:40 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/19 17:35:48 by mcruz-sa         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:33:04 by jimenasando      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 # include <errno.h>
 # include <fcntl.h>
 
+typedef struct s_pipex
+{
+    int     infile;
+    int     outfile;
+    int     fd[2];
+    pid_t   pid;
+} t_pipex;
 
+// checks.c
+void    check_argc(int n);
 
 #endif
