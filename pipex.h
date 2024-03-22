@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
+/*   By: mcruz-sa <mcruz-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:06:40 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/22 12:27:07 by jimenasando      ###   ########.fr       */
+/*   Updated: 2024/03/22 19:59:10 by mcruz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,17 @@ typedef struct s_pipex
     int     outfile;
     int     fd[2];
     char    *path;
+    char    **dir_paths;
     pid_t   pid;
 } t_pipex;
 
 // utils.c
 void    check_argc(int n);
+void	get_path_env(char **env, t_pipex *pipex);
+void	ft_strcpy(char *dst, const char *src);
+void	prog_exec(char *argv, char **env, t_pipex pipex);
+char	*cmd_path(char *argv, t_pipex pipex);
+void	cleanup_split(char **split);
 
 //pipex.c
 void	child_process(char *argv[], t_pipex pipex, char *env[]);

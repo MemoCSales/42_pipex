@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
+/*   By: mcruz-sa <mcruz-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:06:22 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/22 12:27:39 by jimenasando      ###   ########.fr       */
+/*   Updated: 2024/03/22 20:16:43 by mcruz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ int main(int argc, char *argv[], char **env)
 		perror("Fork error");
 		exit(EXIT_FAILURE);
 	}
-	get_path_env(env);
+	get_path_env(env, &pipex);
+	pipex.dir_paths = ft_split(pipex.path, ':');
 	if (pipex.pid == 0)
 		child_process(argv, pipex, env);
 	parent_process(argv, pipex, env);
+	//Free pipex.dir_paths
+	//free pipex.path
 	return (0);   
 }
 

@@ -10,7 +10,8 @@ CFLAGS	= -Wall -Wextra -Werror -g
 
 SRC = 	main.c \
 		utils.c \
-		pipex.c
+		utils_2.c \
+		pipex.c	\
 
 all: $(NAME)
 
