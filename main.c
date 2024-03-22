@@ -6,7 +6,7 @@
 /*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:06:22 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/21 15:49:47 by jimenasando      ###   ########.fr       */
+/*   Updated: 2024/03/22 12:27:39 by jimenasando      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int main(int argc, char *argv[], char **env)
 		perror("Fork error");
 		exit(EXIT_FAILURE);
 	}
+	get_path_env(env);
 	if (pipex.pid == 0)
 		child_process(argv, pipex, env);
 	parent_process(argv, pipex, env);

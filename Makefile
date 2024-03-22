@@ -9,7 +9,8 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -g
 
 SRC = 	main.c \
-		checks.c
+		utils.c \
+		pipex.c
 
 all: $(NAME)
 

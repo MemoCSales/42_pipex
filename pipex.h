@@ -6,7 +6,7 @@
 /*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:06:40 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/21 15:33:04 by jimenasando      ###   ########.fr       */
+/*   Updated: 2024/03/22 12:27:07 by jimenasando      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,17 @@ typedef struct s_pipex
     int     infile;
     int     outfile;
     int     fd[2];
+    char    *path;
     pid_t   pid;
 } t_pipex;
 
-// checks.c
+// utils.c
 void    check_argc(int n);
+
+//pipex.c
+void	child_process(char *argv[], t_pipex pipex, char *env[]);
+void	parent_process(char *argv[], t_pipex pipex, char *env[]);
+
+
 
 #endif
