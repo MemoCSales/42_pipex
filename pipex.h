@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcruz-sa <mcruz-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:06:40 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/22 19:59:10 by mcruz-sa         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:50:51 by jimenasando      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	ft_strcpy(char *dst, const char *src);
 void	prog_exec(char *argv, char **env, t_pipex pipex);
 char	*cmd_path(char *argv, t_pipex pipex);
 void	cleanup_split(char **split);
+void	create_pipe(t_pipex *pipex);
+void	close_pipes(t_pipex *pipex);
 
 //pipex.c
 void	child_process(char *argv[], t_pipex pipex, char *env[]);

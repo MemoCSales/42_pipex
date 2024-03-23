@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcruz-sa <mcruz-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:06:22 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/22 20:16:43 by mcruz-sa         ###   ########.fr       */
+/*   Updated: 2024/03/23 15:51:09 by jimenasando      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,37 @@ int main(int argc, char *argv[], char **env)
 {
 	t_pipex	pipex;
 
+	// printf("Before check_argc\n");
 	check_argc(argc);
-	if (pipe(pipex.fd) == -1)
-	{
-		perror("Pipe error");
-		exit(EXIT_FAILURE);
-	}
+	// printf("After check_argc\n");
+	create_pipe(&pipex);
 	pipex.pid = fork();
 	if (pipex.pid < 0)
 	{
 		perror("Fork error");
 		exit(EXIT_FAILURE);
 	}
+	// printf("Before get_path_env function\n");
 	get_path_env(env, &pipex);
+	// printf("After get_path_env_function\n");
 	pipex.dir_paths = ft_split(pipex.path, ':');
 	if (pipex.pid == 0)
+	{
+		// printf("Before child process function\n");
 		child_process(argv, pipex, env);
-	parent_process(argv, pipex, env);
-	//Free pipex.dir_paths
-	//free pipex.path
+		// printf("After child process function\n");
+		exit(1);
+	}
+	else
+	{
+		waitpid(pipex.pid, NULL, 0);
+		// printf("Before parent process function\n");
+		parent_process(argv, pipex, env);
+		// printf("After parent process function\n");
+		close_pipes(&pipex);
+		cleanup_split(pipex.dir_paths);
+		free(pipex.path);
+	}
 	return (0);   
 }
 
