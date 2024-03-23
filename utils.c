@@ -6,17 +6,17 @@
 /*   By: mcruz-sa <mcruz-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:54:35 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/22 20:37:33 by mcruz-sa         ###   ########.fr       */
+/*   Updated: 2024/03/23 19:48:15 by mcruz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void    check_argc(int n)
+void	check_argc(int n)
 {
-    if (n < 5)
+	if (n != 5)
 	{
-        ft_putstr_fd("./pipex infile cmd1 cmd2 outfile\n", STDERR_FILENO);
+		ft_putstr_fd("./pipex infile cmd1 cmd2 outfile\n", STDERR_FILENO);
 		exit(1);
 	}
 }
@@ -24,19 +24,15 @@ void    check_argc(int n)
 void	get_path_env(char **env, t_pipex *pipex)
 {
 	int		i;
-	char	*path_env;
 
-	path_env = NULL;
 	pipex->path = NULL;
 	i = 0;
 	while (env[i] != NULL)
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
-			path_env = (char *)malloc(ft_strlen(env[i]) - 4);
-			ft_strcpy(path_env, env[i] + 5);
-			pipex->path = path_env;
-			break;
+			pipex->path = env[i] + 5;
+			break ;
 		}
 		i++;
 	}
@@ -60,7 +56,7 @@ void	prog_exec(char *argv, char **env, t_pipex pipex)
 
 	cmd = ft_split(argv, ' ');
 	path = cmd_path(argv, pipex);
-	if(execve(path, cmd, env) == -1)
+	if (execve(path, cmd, env) == -1)
 	{
 		ft_putstr_fd("Command not found: ", 2);
 		ft_putendl_fd(cmd[0], 2);
@@ -93,5 +89,5 @@ char	*cmd_path(char *argv, t_pipex pipex)
 	}
 	cleanup_split(pipex.dir_paths);
 	cleanup_split(cmd);
-	return(argv);
+	return (argv);
 }
