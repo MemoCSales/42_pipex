@@ -20,6 +20,7 @@ SRC = 	main.c \
 
 SRC_BONUS = main_bonus.c \
 			utils_bonus.c \
+			utils_bonus_2.c \
 
 all: $(NAME)
 

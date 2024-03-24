@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcruz-sa <mcruz-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:59:55 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/24 19:54:30 by mcruz-sa         ###   ########.fr       */
+/*   Updated: 2024/03/25 00:00:26 by jimenasando      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ typedef struct s_pipex
 
 //utils_bonus.c
 int     check_heredoc(int n, char *argv[]);
+void	get_path_env(char **env, t_pipex *pipex);
+void	put_input(t_pipex *pipex, char *argv[]);
 void	do_here_doc(t_pipex *pipex, char *argv[]);
+
+//utils_bonus_2.c
+void	cleanup_split(char **split);
+void	close_pipes(t_pipex *pipex);
+
 
 #endif

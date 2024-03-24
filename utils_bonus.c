@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcruz-sa <mcruz-sa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 18:03:21 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/24 21:22:11 by mcruz-sa         ###   ########.fr       */
+/*   Updated: 2024/03/25 00:00:36 by jimenasando      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,28 @@ int	check_heredoc(int n, char *argv[])
 	return (0);
 }
 
+void	get_path_env(char **env, t_pipex *pipex)
+{
+	int		i;
+
+	pipex->path = NULL;
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+		{
+			pipex->path = env[i] + 5;
+			break ;
+		}
+		i++;
+	}
+}
+
 void	put_input(t_pipex *pipex, char *argv[])
 {
 	char	*buffer;
-	int		file;
 
 	close(pipex->fd[0]);
-	file = open(".heredoc_tmp", O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	if (file < 0)
-	{
-		ft_putstr_fd("Error opening .heredoc_tmp file", 2);
-		exit(1);
-	}
 	while (1)
 	{
 		ft_putstr_fd("heredoc>", 1); //check if it is 0 or 1
@@ -53,12 +63,12 @@ void	put_input(t_pipex *pipex, char *argv[])
 		if (ft_strncmp(buffer, argv[2], ft_strlen(argv[2])) == 0)
 		{
 			free(buffer);
-			break;
+			exit(0);
 		}
 		ft_putstr_fd(buffer, pipex->fd[1]);
 		free(buffer);
 	}
-	
+	free(buffer);
 }
 
 void	do_here_doc(t_pipex *pipex, char *argv[])
@@ -74,7 +84,6 @@ void	do_here_doc(t_pipex *pipex, char *argv[])
 		perror("Fork error in here_doc");
 		exit(EXIT_FAILURE);
 	}
-	// ./pipex here_doc LIMITER cmd cmd1 file
 	if (pipex->pid1 == 0)
 		//Child process
 		put_input(&pipex, argv); //function to handle here_doc
