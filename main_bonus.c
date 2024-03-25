@@ -6,7 +6,7 @@
 /*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:28:12 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/24 23:58:55 by jimenasando      ###   ########.fr       */
+/*   Updated: 2024/03/25 11:06:01 by jimenasando      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ void	check_openfile(t_pipex *pipex, char *file)
 int	main(int argc, char *argv[], char *env[])
 {
 	t_pipex pipex;
-	int		is_heredoc;
+	// int		is_heredoc;
 
-	is_heredoc = check_heredoc(argc, argv);
 	get_path_env(env, &pipex);
+	pipex.is_heredoc = check_heredoc(argc, argv);
+	pipex.cmds = get_num_cmds(&pipex, argc, argv);
 	pipex.dir_paths - ft_split(pipex.path, ':');
-	if (is_heredoc)
+	if (pipex.is_heredoc)
 	{
 		pipex.outfile = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
 		check_openfile(&pipex, "outfile");

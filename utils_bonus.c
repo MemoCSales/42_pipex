@@ -6,7 +6,7 @@
 /*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 18:03:21 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/25 00:00:36 by jimenasando      ###   ########.fr       */
+/*   Updated: 2024/03/25 11:10:08 by jimenasando      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,28 +70,28 @@ void	put_input(t_pipex *pipex, char *argv[])
 	}
 	free(buffer);
 }
-
-void	do_here_doc(t_pipex *pipex, char *argv[])
+int	get_num_cmds(t_pipex *pipex, int argc, char *argv[])
 {
-	if (pipe(pipex->fd) == -1)
+	int		i;
+
+	if (pipex->is_heredoc)
 	{
-		perror("Pipe error");
-		exit(EXIT_FAILURE);
+		i = 3;
+		while (i < argc - 1)
+		{
+			pipex->cmds++;
+			i++;
+		}
+		return(pipex->cmds);
 	}
-	pipex->pid1	= fork();
-	if (pipex->pid1 < 0)
-	{
-		perror("Fork error in here_doc");
-		exit(EXIT_FAILURE);
-	}
-	if (pipex->pid1 == 0)
-		//Child process
-		put_input(&pipex, argv); //function to handle here_doc
 	else
 	{
-		//Parent process
-		close(pipex->fd[1]);	//close writting end of pipe
-		dup2(pipex->fd[0], STDIN_FILENO);	//
-		waitpid(pipex->pid1, NULL, 0);
+		i = 2;
+		while (i < argc - 1)
+		{
+			pipex->cmds++;
+			i++;
+		}
+		return(pipex->cmds);
 	}
 }

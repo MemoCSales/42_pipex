@@ -6,7 +6,7 @@
 /*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:59:55 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/25 00:00:26 by jimenasando      ###   ########.fr       */
+/*   Updated: 2024/03/25 11:03:51 by jimenasando      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_pipex
     char    **dir_paths;
     pid_t   pid1;
     pid_t   pid2;
+    int     is_heredoc;
+    int     cmds;
 } t_pipex;
 
 //utils_bonus.c
