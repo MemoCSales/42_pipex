@@ -6,7 +6,7 @@
 /*   By: mcruz-sa <mcruz-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 12:06:22 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/23 19:49:08 by mcruz-sa         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:34:37 by mcruz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,4 @@ int	main(int argc, char *argv[], char **env)
 		child_process(argv, pipex, env);
 	waitpid(pipex.pid, NULL, 0);
 	parent_process(argv, pipex, env);
-	close_pipes(&pipex);
-	cleanup_split(pipex.dir_paths);
-	return (0);
 }

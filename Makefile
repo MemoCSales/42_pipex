@@ -21,6 +21,7 @@ SRC = 	main.c \
 SRC_BONUS = main_bonus.c \
 			utils_bonus.c \
 			utils_bonus_2.c \
+			pipex_bonus.c	\
 
 all: $(NAME)
 
@@ -67,7 +68,7 @@ fclean: clean
 re: fclean all
 
 norminette: 
-		norminette $(SRC) $(SUPPORT_DIR) pipex.h $(LIBFT_DIRECTORY)
+		norminette $(SRC) $(SRC_BONUS) $(SUPPORT_DIR) pipex.h $(LIBFT_DIRECTORY)
 
 .PHONY: all clean fclean re
 

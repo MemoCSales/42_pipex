@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jimenasandoval <jimenasandoval@student.    +#+  +:+       +#+        */
+/*   By: mcruz-sa <mcruz-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 18:03:21 by mcruz-sa          #+#    #+#             */
-/*   Updated: 2024/03/25 11:10:08 by jimenasando      ###   ########.fr       */
+/*   Updated: 2024/03/25 17:46:00 by mcruz-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	check_heredoc(int n, char *argv[])
 	return (0);
 }
 
-void	get_path_env(char **env, t_pipex *pipex)
+void	get_path_env_bonus(char **env, t_pipex *pipex)
 {
-	int		i;
+	int	i;
 
 	pipex->path = NULL;
 	i = 0;
@@ -58,7 +58,7 @@ void	put_input(t_pipex *pipex, char *argv[])
 	close(pipex->fd[0]);
 	while (1)
 	{
-		ft_putstr_fd("heredoc>", 1); //check if it is 0 or 1
+		ft_putstr_fd("heredoc>", 1);
 		buffer = get_next_line(0);
 		if (ft_strncmp(buffer, argv[2], ft_strlen(argv[2])) == 0)
 		{
@@ -70,10 +70,12 @@ void	put_input(t_pipex *pipex, char *argv[])
 	}
 	free(buffer);
 }
-int	get_num_cmds(t_pipex *pipex, int argc, char *argv[])
-{
-	int		i;
 
+int	get_num_cmds(t_pipex *pipex, int argc)
+{
+	int	i;
+
+	pipex->cmds = 0;
 	if (pipex->is_heredoc)
 	{
 		i = 3;
@@ -82,7 +84,7 @@ int	get_num_cmds(t_pipex *pipex, int argc, char *argv[])
 			pipex->cmds++;
 			i++;
 		}
-		return(pipex->cmds);
+		return (pipex->cmds);
 	}
 	else
 	{
@@ -92,6 +94,22 @@ int	get_num_cmds(t_pipex *pipex, int argc, char *argv[])
 			pipex->cmds++;
 			i++;
 		}
-		return(pipex->cmds);
+		return (pipex->cmds);
+	}
+}
+
+void	prog_exec_bonus(char *argv, char **env, t_pipex *pipex)
+{
+	char	**cmd;
+	char	*path;
+
+	cmd = ft_split(argv, ' ');
+	path = cmd_path_bonus(argv, pipex);
+	if (execve(path, cmd, env) == -1)
+	{
+		ft_putstr_fd("Command not found: ", 2);
+		ft_putendl_fd(cmd[0], 2);
+		cleanup_split_bonus(cmd);
+		exit(1);
 	}
 }
